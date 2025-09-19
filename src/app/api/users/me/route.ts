@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
         if (!userId) {
             return NextResponse.json({message: "Unauthorized"}, {status: 401});
         }
+        //find user by id from database
         const user = await User.findOne({_id: userId}).select("-password");
         return NextResponse.json({
             message: "User found",

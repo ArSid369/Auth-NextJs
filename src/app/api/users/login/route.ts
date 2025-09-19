@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
         }
         console.log("password matched");
 
+        //create token for login/session/auth/forgotpassword
         const tokenData = {
             id: user._id,
             username: user.username,

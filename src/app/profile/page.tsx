@@ -32,7 +32,7 @@ export default function ProfilePage() {
             <h1>Profile Page</h1>
             <p>This is the profile page.</p>
             <h2 className="p-1 rounded bg-orange-500">
-                {data === "nothing" ? "Nothing" : <Link href={`/profile/${data}`}>{data.username}</Link>}
+                {data === "nothing" ? "Nothing" : <Link href={`/profile/${data}`}>{data}</Link>}
             </h2>
             <hr />
             <button 

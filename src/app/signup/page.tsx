@@ -16,15 +16,22 @@ export default function signup() {
     });
     const [buttonDisabled, setButtonDisabled] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
+    const [hydrated, setHydrated] = useState(false);
 
 
     useEffect(() => {
+        setHydrated(true)
         if(user.email.length>0 && user.email.length>0 && user.email.length>0) {
             setButtonDisabled(false);
         } else {
             setButtonDisabled(true);
         }
     }, [user]);
+
+    if(!hydrated) {
+        // this returns null on first render, so the client and server match
+        return null
+    }
 
     const onSignup = async () => {
         try {

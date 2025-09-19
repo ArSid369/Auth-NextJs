@@ -14,14 +14,14 @@ This is a full-stack authentication system built with Next.js, providing a solid
 
 ## Technologies Used
 
-*   **Framework:** [Next.js](httpss://nextjs.org/) <img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" height="20"/>
-*   **Language:** [TypeScript](https://www.typescriptlang.org/) <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" height="20"/>
-*   **UI Library:** [React](https://reactjs.org/) <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" height="20"/>
-*   **Styling:** [Tailwind CSS](https://tailwindcss.com/) <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" height="20"/>
-*   **Database:** [MongoDB](https://www.mongodb.com/) (with [Mongoose](https://mongoosejs.com/)) <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" height="20"/>
+*   **Framework:** [Next.js](https://nextjs.org/)
+*   **Language:** [TypeScript](https://www.typescriptlang.org/)
+*   **UI Library:** [React](https://reactjs.org/)
+*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+*   **Database:** [MongoDB](https://www.mongodb.com/) (with [Mongoose](https://mongoosejs.com/))
 *   **Authentication:** [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken), [bcryptjs](https://github.com/dcodeIO/bcrypt.js)
 *   **API Communication:** [axios](https://axios-http.com/)
-*   **Emailing:** [Nodemailer](https://nodemailer.com/) <img src="https://img.shields.io/badge/Nodemailer-2B5A8D?style=for-the-badge&logo=nodemailer&logoColor=white" alt="Nodemailer" height="20"/>
+*   **Emailing:** [Nodemailer](https://nodemailer.com/)
 *   **Notifications:** [React Hot Toast](https://react-hot-toast.com/)
 
 ## Getting Started

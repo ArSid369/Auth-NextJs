@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
-    const isPublicPath = ((path === '/login') || (path === '/signup') || (path === '/verifyemail'));
+    const isPublicPath = ((path === '/login') || (path === '/signup') || (path === '/verifyemail') || (path === '/forgotPassword'));
 
     //get token from cookies
     //it retrieves token value from cookies, if not found assigns empty string
@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
     
     //if user is logged in and tries to access login or signup page, redirect to home page
     if(isPublicPath && token) {
-        return NextResponse.redirect(new URL('/', request.nextUrl));
+        return NextResponse.redirect(new URL('/profile', request.nextUrl));
     }
 
     //if user is not logged in and tries to access protected route, redirect to login page
@@ -28,5 +28,6 @@ export const config = {
         '/login',
         '/signup',
         '/verifyemail',
+        '/forgotPassword',
     ]
 }

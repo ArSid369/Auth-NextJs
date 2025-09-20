@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         //send verification email
         await sendEmail({
             email, 
-            emailType: "VERIFY", 
+            emailType: "RESET", 
             userId: saveUser._id
         });
 

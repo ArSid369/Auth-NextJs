@@ -74,6 +74,10 @@ export default function login() {
                 className="text-blue-500 hover:underline mt-4"
                 href="/signup"
             >Signup</a>
+            <a 
+                className="text-blue-500 hover:underline mt-4"
+                href="/forgotPassword"
+            >Forgot Password?</a>
         </div>
     )
 }

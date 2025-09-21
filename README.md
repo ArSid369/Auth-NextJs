@@ -11,6 +11,8 @@ This is a full-stack authentication system built with Next.js, providing a solid
 *   **Protected Routes:** Middleware to protect specific routes from unauthenticated access.
 *   **Password Hashing:** User passwords are securely hashed before being stored in the database.
 *   **User Profiles:** A dedicated page for users to view their information.
+*   **Forgot Password:** Allows users to request a password reset link via email.
+*   **Reset Password:** Users can reset their password using a secure token.
 
 ## Technologies Used
 
@@ -87,6 +89,55 @@ The following API endpoints are available:
 *   `POST /api/users/verifyemail`: Verify a user's email address.
 *   `GET /api/users/me`: Get the current logged-in user's data.
 *   `GET /api/users/logout`: Log out the current user.
+*   `POST /api/users/forgotpassword`: Send a password reset link to the user's email.
+*   `POST /api/users/resetpassword`: Reset the user's password using a token.
+
+## Pages
+
+The following pages are available:
+
+*   `/`: The home page.
+*   `/login`: The login page.
+*   `/signup`: The signup page.
+*   `/profile`: The user profile page.
+*   `/forgot-password`: The forgot password page.
+*   `/reset-password`: The reset password page.
+*   `/verify-email`: The verify email page.
+
+## Folder Structure
+
+The folder structure of the project is as follows:
+
+*   `src/app`: Contains the pages of the application.
+*   `src/app/api`: Contains the API routes of the application.
+*   `src/dbConfig`: Contains the database configuration.
+*   `src/helpers`: Contains the helper functions.
+*   `src/models`: Contains the database models.
+*   `public`: Contains the public assets of the application.
+
+## Environment Variables
+
+The following environment variables are used in the project:
+
+*   `MONGO_URI`: The connection string for the MongoDB database.
+*   `TOKEN_SECRET`: The secret key for signing the JWT.
+*   `NODEMAILER_USER`: The email address for sending emails.
+*   `NODEMAILER_PASS`: The password for the email address.
+
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1.  Fork the repository.
+2.  Create a new branch (`git checkout -b feature/your-feature-name`).
+3.  Make your changes.
+4.  Commit your changes (`git commit -m 'Add some feature'`).
+5.  Push to the branch (`git push origin feature/your-feature-name`).
+6.  Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Linting
 

@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
-    const isPublicPath = ((path === '/login') || (path === '/signup') || (path === '/verifyemail') || (path === '/forgotPassword'));
+    const isPublicPath = ((path === '/login') || (path === '/signup') || (path === '/verifyemail') || (path === '/forgotPassword') || (path.startsWith('/resetpassword')));
 
     //get token from cookies
     //it retrieves token value from cookies, if not found assigns empty string
@@ -29,5 +29,6 @@ export const config = {
         '/signup',
         '/verifyemail',
         '/forgotPassword',
+        '/resetpassword/:path*',
     ]
 }

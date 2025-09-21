@@ -21,10 +21,22 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     }, 
-    forgotPasswordToken: String,
-    forgotPasswordTokenExpiry: Date,
-    verifyToken: String,
-    verifyTokenExpiry: Date,
+    forgotPasswordToken: {
+        type: String,
+        default: null,
+    },
+    forgotPasswordTokenExpiry: {
+        type: Date,
+        default: null,
+    },
+    verifyToken: {
+        type: String,
+        default: null,
+    },
+    verifyTokenExpiry: {
+        type: Date,
+        default: null,
+    },
 });
 
 //creating new model or using existing model

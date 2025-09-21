@@ -19,14 +19,18 @@ export async function POST(request: NextRequest) {
         if(!user){
             return NextResponse.json({error: "User does not exist"}, {status: 400});
         }
-        console.log("user exists");
+        //console.log("user exists");
+        console.log(user);
 
         //send verification email
-        await sendEmail({
+        const emailresp = await sendEmail({
             email, 
             emailType: "RESET", 
             userId: user._id
         });
+
+        console.log(emailresp);
+        //console.log(user);
 
         return NextResponse.json({
             message: "Verification Email sent successfully",

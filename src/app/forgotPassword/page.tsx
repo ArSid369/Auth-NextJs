@@ -1,6 +1,6 @@
 "use client"
 
-import { set } from "mongoose";
+
 import React,{ useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -15,13 +15,18 @@ export default function ForgotPasswordPage() {
     });
 
     const sendLink = async () => {
-        setLoading(true);
-        //call api to send reset link
-        //mock api call
-        const response = await axios.post('/api/users/forgotPassword', user);
-        console.log(response.data);
-        toast.success("Reset link sent. Check console.");
-        setLoading(false);
+        try {
+            setLoading(true);
+            //call api to send reset link
+            //mock api call
+            const response = await axios.post('/api/users/forgotPassword', user);
+            console.log(response.data);
+            toast.success("Reset link sent. Check console.");
+        } catch (e: any) {
+            return toast.error(e.response?.data?.message || "Something went wrong");
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (

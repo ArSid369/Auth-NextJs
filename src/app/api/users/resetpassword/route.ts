@@ -1,6 +1,7 @@
 import { connect } from '@/dbConfig/dbConfig';
 import { NextRequest,NextResponse } from 'next/server';
 import User from '@/models/userModel';
+import bcryptjs from 'bcryptjs';
 
 
 connect();
@@ -8,25 +9,29 @@ connect();
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();
-        //extract token from reqBody
-        const {token} = reqBody;
-        console.log(token);
+        const {fwptoken, npw} = reqBody;
+        console.log(reqBody);
 
-        const user = await User.findOne({verifyToken: token, verifyTokenExpiry: {$gt: Date.now()}});
+        const user = await User.findOne({forgotPasswordToken: fwptoken, forgotPasswordTokenExpiry: {$gt: Date.now()}});
         if(!user) {
             return NextResponse.json({message: "Invalid or expired token"}, {status: 400});
         }
-
         console.log(user);
 
-        //update user to verify true and remove token fields
-        user.isVerified = true;
-        user.verifyToken = undefined;
-        user.verifyTokenExpiry = undefined;
+        //hash password before saving
+        const salt = await bcryptjs.genSalt(10);
+        const hashnpw = await bcryptjs.hash(npw, salt);
 
-        await user.save()
+        //update user password and remove token fields
+        await User.updateOne(
+            { _id: user._id },
+            {
+                $set: { password: hashnpw },
+                $unset: { forgotPasswordToken: "", forgotPasswordTokenExpiry: "" }
+            }
+        );
 
-        return NextResponse.json({message: "Email verified successfully"}, {status: 200});
+        return NextResponse.json({message: "Password reset successfully"}, {status: 200});
 
     } catch (error: any) {
         return NextResponse.json({message: error.message}, {status: 500});

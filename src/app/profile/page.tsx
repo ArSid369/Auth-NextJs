@@ -11,6 +11,8 @@ import { toast } from "react-hot-toast";
 export default function ProfilePage() {
     const router = useRouter()
     const [data, setData] = useState("nothing")
+    const [user, setUser] = useState(null);
+
     const onLogout = async () => {
         try {
             await axios.get('/api/users/logout')
@@ -26,15 +28,17 @@ export default function ProfilePage() {
     const getUserDetails = async () => {
         const res = await axios.get('/api/users/me');
         console.log(res.data);
+        setUser(res.data.data.username);
         setData(res.data.data._id);
     }
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2"> 
             <h1>Profile Page</h1>
             <p>This is the profile page.</p>
             <h2 className="p-1 rounded bg-orange-500">
-                {data === "nothing" ? "Nothing" : <Link href={`/profile/${data}`}>{data}</Link>}
+                {data === "nothing" ? "Nothing" : <Link href={`/profile/${data}`}>{user}</Link>}
             </h2>
             <hr />
             <button 

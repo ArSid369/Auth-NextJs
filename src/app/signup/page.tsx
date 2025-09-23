@@ -1,13 +1,13 @@
 "use client"
 
-import link from "next/link";
-import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
 
 
-export default function signup() {
+export default function SignupPage() {
     const router = useRouter();
     const [user, setUser] = React.useState({
         email: "",
@@ -16,22 +16,15 @@ export default function signup() {
     });
     const [buttonDisabled, setButtonDisabled] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
-    const [hydrated, setHydrated] = useState(false);
 
 
     useEffect(() => {
-        setHydrated(true)
-        if(user.email.length>0 && user.email.length>0 && user.email.length>0) {
+        if(user.email.length>0 && user.username.length>0 && user.password.length>0) {
             setButtonDisabled(false);
         } else {
             setButtonDisabled(true);
         }
     }, [user]);
-
-    if(!hydrated) {
-        // this returns null on first render, so the client and server match
-        return null
-    }
 
     const onSignup = async () => {
         try {
@@ -42,10 +35,12 @@ export default function signup() {
             //push user to login page
             router.push('/login')
 
-        } catch(e: any) {
-            const errorMsg = e.response?.data?.error || e.message;
-            console.log("Login error", errorMsg);
-            toast.error(errorMsg);
+        } catch(e: unknown) {
+            if (e instanceof AxiosError) {
+                const errorMsg = e.response?.data?.error || e.message;
+                console.log("Login error", errorMsg);
+                toast.error(errorMsg);
+            }
         } finally {
             setLoading(false);
         }
@@ -85,13 +80,14 @@ export default function signup() {
             <button 
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 onClick={onSignup}
+                disabled={buttonDisabled}
             >
                     {buttonDisabled ? "No Signup" : "Signup"}
             </button>
-            <a 
+            <Link 
                 className="text-blue-500 hover:underline mt-4"
                 href="/login"
-            >Go to Login</a>
+            >Go to Login</Link>
         </div>
     )
 }

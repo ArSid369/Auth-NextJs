@@ -1,20 +1,19 @@
 "use client"
-import link from "next/link";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
 
 
-export default function login() {
+export default function LoginPage() {
     const router = useRouter();
     const [user, setUser] = React.useState({
         email: "",
         password: ""
     })
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [disabled, setButtonDisabled] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     useEffect(() => {
         if (user.email.length > 0 && user.password.length > 0) {
@@ -33,10 +32,12 @@ export default function login() {
             //redirect to home page
             router.push('/profile');
 
-        } catch (e: any) {
-            const errorMsg = e.response?.data?.error || e.message;
-            console.log("Login error: ", errorMsg);
-            toast.error(errorMsg);
+        } catch (e: unknown) {
+            if (e instanceof AxiosError) {
+                const errorMsg = e.response?.data?.error || e.message;
+                console.log("Login error: ", errorMsg);
+                toast.error(errorMsg);
+            }
         } finally {
             setLoading(false);
         }
@@ -66,18 +67,19 @@ export default function login() {
                 />
             <button 
                 onClick={onLogin}
+                disabled={buttonDisabled}
                 className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    {disabled ? "Enter Details" : "Login"}
+                    {buttonDisabled ? "Enter Details" : "Login"}
             </button>
             <label>New User?</label>
-            <a 
+            <Link 
                 className="text-blue-500 hover:underline mt-4"
                 href="/signup"
-            >Signup</a>
-            <a 
+            >Signup</Link>
+            <Link 
                 className="text-blue-500 hover:underline mt-4"
                 href="/forgotPassword"
-            >Forgot Password?</a>
+            >Forgot Password?</Link>
         </div>
     )
 }

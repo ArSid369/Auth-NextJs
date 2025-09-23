@@ -1,30 +1,32 @@
 "use client"
 
-import axios from "axios";
-import Router from "next/router";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 
 
-export default function verifyEmail() {
+export default function VerifyEmailPage() {
 
     const [token, setToken] = useState("");
     const [verified, setVerified] = useState(false);
     const [error, setError] = useState(false);
 
-    const VerifyUserEmail = async () => {
+    const VerifyUserEmail = useCallback(async () => {
         try {
             await axios.post('/api/users/verifyEmail', {token});
             setVerified(true);
-        } catch (error: any) {
+        } catch (error: unknown) {
             setError(true);
-            console.log(error.message);
+            if (error instanceof AxiosError) {
+                console.log(error.response?.data?.message);
+            }
         }
-    }
+    }, [token]);
 
     useEffect(() => {
-        const urlToken = window.location.search.split("=")[1];
+        const params = new URLSearchParams(window.location.search);
+        const urlToken = params.get('token');
         if(urlToken) {
             setToken(urlToken || "");
         }
@@ -34,7 +36,7 @@ export default function verifyEmail() {
         if(token.length > 0) {
             VerifyUserEmail();
         }
-    }, [token]);
+    }, [token, VerifyUserEmail]);
 
 
     return (

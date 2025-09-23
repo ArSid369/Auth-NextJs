@@ -3,12 +3,11 @@
 
 import React,{ useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 
 export default function ForgotPasswordPage() {
     const [loading, setLoading] = useState(false);
-    const [disabled, setDisabled] = useState(false);
 
     const [user, setUser] = React.useState({
         email: "",
@@ -22,8 +21,11 @@ export default function ForgotPasswordPage() {
             const response = await axios.post('/api/users/forgotPassword', user);
             console.log(response.data);
             toast.success("Reset link sent. Check console.");
-        } catch (e: any) {
-            return toast.error(e.response?.data?.message || "Something went wrong");
+        } catch (e: unknown) {
+            if (e instanceof AxiosError) {
+                return toast.error(e.response?.data?.message || "Something went wrong");
+            }
+            return toast.error("Something went wrong");
         } finally {
             setLoading(false);
         }

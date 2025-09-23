@@ -1,6 +1,12 @@
 
 
-export default async function UserProfile({params}: any) {
+interface UserProfileProps {
+    params: {
+        id: string;
+    };
+}
+
+export default async function UserProfile({params}: UserProfileProps) {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2"> 

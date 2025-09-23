@@ -2,15 +2,12 @@
 
 import React,{useEffect} from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { NextResponse } from "next/server";
-
 
 export default function ResetPasswordPage( ) {
     const Router = useRouter();
     const [loading, setLoading] = React.useState(false);
-    const [disabled, setDisabled] = React.useState(false);
     const [user, setUser] = React.useState({
         token: "",
         password: "",
@@ -26,7 +23,7 @@ export default function ResetPasswordPage( ) {
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
         if(token) {
-            setUser({...user, token});
+            setUser(prevUser => ({...prevUser, token}));
         }
         console.log(token);
         
@@ -39,8 +36,10 @@ export default function ResetPasswordPage( ) {
             console.log("Response: ",resposne.data);
             toast.success("Password reset successful");
             Router.push('/login');
-        } catch (error: any) {
-            return NextResponse.json({error: error.message},{status: 500});
+        } catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                toast.error(error.response?.data?.message || "Something went wrong");
+            }
         } finally {
             setLoading(false);
         }

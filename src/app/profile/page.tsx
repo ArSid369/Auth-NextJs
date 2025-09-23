@@ -3,7 +3,7 @@
 import React,{useState} from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
 
 
@@ -16,9 +16,11 @@ export default function ProfilePage() {
             await axios.get('/api/users/logout')
             toast.success('Logout successful')
             router.push('/login')
-        } catch (error:any) {
-            console.log(error.message);
-            toast.error(error.message)
+        } catch (error:unknown) {
+            if (error instanceof AxiosError) {
+                console.log(error.message);
+                toast.error(error.message)
+            }
         }
     }
     const getUserDetails = async () => {
@@ -48,5 +50,3 @@ export default function ProfilePage() {
         </div>
     );
 }
-
-
